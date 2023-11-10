@@ -14,10 +14,8 @@ def bilby_likelihood():
     x = np.linspace(0, 1, 11)
     injection_parameters = dict(m=0.5, c=0.2)
     sigma = 0.1
-    y = model(x, **injection_parameters) + rng.normal(0., sigma, len(x))
-    likelihood = bilby.likelihood.GaussianLikelihood(
-        x, y, model, sigma
-    )
+    y = model(x, **injection_parameters) + rng.normal(0.0, sigma, len(x))
+    likelihood = bilby.likelihood.GaussianLikelihood(x, y, model, sigma)
     return likelihood
 
 
@@ -37,7 +35,6 @@ def sampler_kwargs():
 
 
 def test_run_sampler(bilby_likelihood, bilby_priors, tmp_path, sampler_kwargs):
-
     outdir = tmp_path / "test_run_sampler"
 
     bilby.run_sampler(
