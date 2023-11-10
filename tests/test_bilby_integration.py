@@ -30,7 +30,7 @@ def bilby_priors():
 @pytest.fixture()
 def sampler_kwargs():
     return dict(
-        nlive=100,
+        ninitial=100,
     )
 
 
