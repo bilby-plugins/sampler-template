@@ -38,19 +38,19 @@ class DemoSampler(NestedSampler):
         It should also return the result object.
         """
 
-        # The code below shows how you can call different method.
+        # The code below shows how you can call different methods.
         # Replace this code with calls to your sampler
 
         # Keyword arguments are stored in self.kwargs
         prior_samples = np.array(
             list(self.priors.sample(self.kwargs["ninitial"]).values()),
         ).T
-        # We can evaluate the log-prior
-        logp = self.log_prior(prior_samples)
-        # And similarly for the log-likelihood
+        # We can evaluate the log-prior and log-likelihood
         logl = np.empty(len(prior_samples))
+        logp = np.empty(len(prior_samples))
         for i, sample in enumerate(prior_samples):
             logl[i] = self.log_likelihood(sample)
+            logp[i] = self.log_prior(sample)
 
         # Generate posterior samples
         logw = logl.copy() - logl.max()
@@ -62,8 +62,16 @@ class DemoSampler(NestedSampler):
         # Add the posterior samples to the result object
         # This should be a numpy array of shape (# samples x # parameters)
         self.result.samples = posterior_samples
-        # We can also add the log-evidence
-        self.result.ln_evidence = np.mean(logl)
+        # We can also store the log-likelihood and log-prior values for each
+        # posterior sample
+        self.result.log_likelihood_evaluations = logl[keep]
+        self.result.log_prior_evaluations = logp[keep]
+        # If it is a nested sampler, we can add the nested samples
+        self.result.nested_samples = prior_samples
+        # We can also add the log-evidence and the error
+        # These can be NaNs for samplers that no not estimate the evidence
+        self.result.log_evidence = np.mean(logl)
+        self.result.log_evidence_err = np.std(logl)
 
         # Must return the result object
         return self.result
