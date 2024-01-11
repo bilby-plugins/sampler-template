@@ -12,7 +12,7 @@ There are three main components to a sampler plugin for bilby:
 ## The sampler class
 
 This is the interface between the external sampling code and bilby, in this
-template repo is it located in `demo_sampler_bilby/src/plugin.py`.
+template repo is it located in `src/demo_sampler_bilby/plugin.py`.
 
 The class should inherit from one of:
 
