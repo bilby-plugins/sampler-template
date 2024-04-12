@@ -3,7 +3,7 @@ requires = ["setuptools>=45", "setuptools-scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "demo_sampler_bilby"
+name = "demo-sampler-bilby"
 authors = [
     {name = "your name", email = "your@email.com"},
 ]
