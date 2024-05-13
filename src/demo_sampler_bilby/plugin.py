@@ -13,6 +13,16 @@ class DemoSampler(NestedSampler):
     This class should inherit from :code:`MCMCSampler` or :code:`NestedSampler`
     """
 
+    sampler_name = "demo_sampler"
+    """
+    Name of the sampler. This should match the name specified in the entry
+    point.
+    """
+    abbreviation = None
+    """
+    Abbreviation for the sampler name. Does not have to be specified.
+    """
+
     @property
     def external_sampler_name(self) -> str:
         """The name of package that provides the sampler."""
@@ -75,3 +85,37 @@ class DemoSampler(NestedSampler):
 
         # Must return the result object
         return self.result
+
+    @classmethod
+    def get_expected_outputs(cls, outdir=None, label=None):
+        """Get lists of the expected outputs directories and files.
+
+        These are used by :code:`bilby_pipe` when transferring files via
+        HTCondor. Both can be empty.
+
+        Parameters
+        ----------
+        outdir : str
+            The output directory.
+        label : str
+            The label for the run.
+
+        Returns
+        -------
+        list
+            List of file names.
+        list
+            List of directory names.
+        """
+        # Update this function to list any files and/or directories produced by
+        # the sampler when it runs.
+        filenames = []
+        dirs = []
+        # The following lines return the defaults, an empty list for filenames
+        # and <outdir>/<sampler_name>_<label> for the directories. If
+        # `abbreviation` has been specified, it will be used instead of
+        # `<sampler_name>. Uncomment these lines to use this default
+        # filenames, dirs = super(NestedSampler, cls).get_expected_outputs(
+        #     outdir=outdir, label=label
+        # )
+        return filenames, dirs
