@@ -109,12 +109,17 @@ class DemoSampler(NestedSampler):
         """
         # Update this function to list any files and/or directories produced by
         # the sampler when it runs.
+
+        # If no files/directories are produced, both lists should be empty.
         filenames = []
         dirs = []
+
         # The following lines return the defaults, an empty list for filenames
         # and <outdir>/<sampler_name>_<label> for the directories. If
         # `abbreviation` has been specified, it will be used instead of
-        # `<sampler_name>. Uncomment these lines to use this default
+        # `<sampler_name>. Uncomment these lines to use these defaults and
+        # add additional files/directories or remove the method entirely if
+        # the default are enough.
         # filenames, dirs = super(NestedSampler, cls).get_expected_outputs(
         #     outdir=outdir, label=label
         # )
