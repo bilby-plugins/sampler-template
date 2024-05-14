@@ -114,12 +114,16 @@ class DemoSampler(NestedSampler):
         filenames = []
         dirs = []
 
-        # The following lines return the defaults, an empty list for filenames
-        # and <outdir>/<sampler_name>_<label> for the directories. If
-        # `abbreviation` has been specified, it will be used instead of
-        # `<sampler_name>. Uncomment these lines to use these defaults and
-        # add additional files/directories or remove the method entirely if
-        # the default are enough.
+        # If this method is not defined the defaults are used; an empty list
+        # for filenames and <outdir>/<sampler_name>_<label> for the
+        # directories. If `abbreviation` has been specified, it will be used
+        # instead of `<sampler_name>.
+        # Delete this method to use the defaults.
+
+        # Alternatively, if your sampler uses the defaults plus additional
+        # files and/or directories. Uncomment the following lines and add any
+        # additional files to the relevant lists.
+        # Note: the class here should match the parent class.
         # filenames, dirs = super(NestedSampler, cls).get_expected_outputs(
         #     outdir=outdir, label=label
         # )
