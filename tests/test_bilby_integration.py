@@ -1,4 +1,5 @@
 import bilby
+from demo_sampler_bilby.plugin import DemoSampler
 import numpy as np
 import pytest
 
@@ -44,3 +45,12 @@ def test_run_sampler(bilby_likelihood, bilby_priors, tmp_path, sampler_kwargs):
         sampler="demo_sampler",    # This should match the name of the sampler
         outdir=outdir,
     )
+
+
+def test_expected_outputs():
+    filenames, dirs = DemoSampler.get_expected_outputs(
+        outdir="outdir",
+        label="test",
+    )
+    assert len(filenames) == 0
+    assert len(dirs) == 0
